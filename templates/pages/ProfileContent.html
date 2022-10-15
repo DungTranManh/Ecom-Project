@@ -3,6 +3,25 @@
         <div class="bg-light rounded h-100 p-4">
             <h6 class="mb-4 text-center">Hồ Sơ</h6>
             <form method="POST">
+                {% if alert == "done" %}
+                    <div class="alert alert-success" role="alert">
+                        Thay đổi thông tin cá nhân thành công!
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                    <!--<script>alert("Thay đổi thông tin cá nhân thành công!")</script>-->
+                {% endif %}
+                {% if alert == "matkhau va xacnhanmatkhau khong chinh xac" %}
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <i class="fa fa-exclamation-circle me-2"></i>Thay đổi mật khẩu không thành công!
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                {% endif %}
+                {% if alert == "email da ton tai" %}
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <i class="fa fa-exclamation-circle me-2"></i>Thay đổi email không thành công!
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                {% endif %}
                 <div class="mb-3">
                     <label for="exampleInputUsername1" class="form-label">Tên đăng nhập</label>
                     <input type="text" class="form-control" id="exampleInputUsername1" value= "{{username_login}}" name="UsernameModify">
@@ -20,13 +39,7 @@
                     <input type="text" class="form-control" id="exampleInputPassword2" name='ConfirmPasswordModify' value="{{context[1]}}">
                 </div>
                 <button type="submit" class="btn btn-primary justify-content-center">Nộp</button>
-                {% if alert == "done" %}
-                    <!--<div class="alert alert-success" role="alert">
-                        Thay đổi thông tin cá nhân thành công!
-                    </div>-->
-                    
-                    <script>alert("Thay đổi thông tin cá nhân thành công!")</script>
-                {% endif %}
+                
             </form>
         </div>
     </div>

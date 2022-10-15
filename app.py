@@ -39,6 +39,7 @@ def index():
 
 @app.route("/admin/<username>/", methods=["GET","POST"])
 def mainpage(username):
+    session["tranghientai"] = "mainpage"
     if "dangnhapthanhcong" in session:
         return render_template("index.html", username_login = username)
     else:
@@ -97,7 +98,7 @@ def logout():
 
 @app.route("/admin/profile/", methods=["GET","POST"])
 def profile():
-    
+    session["tranghientai"] = "profile"
     if "dangnhapthanhcong" in session:
         email = session['email'] 
         password = session['password'] 
@@ -113,16 +114,43 @@ def profile():
                 user_already_check = User.query.filter_by(email=get_email_modify).first()
                 # check xem đã tồn tại user có email bằng email_modify hay chưa?
                 if user_already_check:
-                    # show alert email đã tồn tại
-                    pass
+                    return render_template("profile.html", context = context, alert = "email da ton tai", username_login = session['username'])
                 else:
                     user_modify = User.query.filter_by(email=email).first()
                     user_modify.email = get_email_modify
+                    user_modify.username = get_username_modify
+                    if password != get_password_modify:
+                        if get_password_modify == get_confirm_password_modify:
+                            user_modify.password = hashlib.md5(get_password_modify.encode()).hexdigest()
+                        else:
+                            return render_template("profile.html", context = context, alert = "matkhau va xacnhanmatkhau khong chinh xac", username_login = session['username'])
+                    session["username"] = get_username_modify
                     session["email"] = get_email_modify
+                    session['password'] = get_password_modify
                     db.session.commit()
                     return redirect(url_for("profile"))
-            return render_template("profile.html", context = context, alert = "done", username_login = username)
-        return render_template("profile.html", context = context, username_login = username )
+            # Check username
+            if get_username_modify != username:
+                user_modify = User.query.filter_by(username=username, email = email).first()
+                if get_password_modify == get_confirm_password_modify:
+                    user_modify.password = hashlib.md5(get_password_modify.encode()).hexdigest()
+                    session['password'] = get_password_modify
+                else:
+                    return render_template("profile.html", context = context, alert = "matkhau va xacnhanmatkhau khong chinh xac", username_login = session['username'])
+                user_modify.username = get_username_modify
+                session["username"] = get_username_modify
+                db.session.commit()
+                return redirect(url_for("profile"))
+            if password != get_password_modify:
+                user_modify = User.query.filter_by(email=email).first()
+                if get_password_modify == get_confirm_password_modify:
+                    user_modify.password = hashlib.md5(get_password_modify.encode()).hexdigest()
+                    session['password'] = get_password_modify
+                    db.session.commit()
+                    return redirect(url_for("profile"))
+                else:
+                    return render_template("profile.html", context = context, alert = "matkhau va xacnhanmatkhau khong chinh xac", username_login = session['username'])
+        return render_template("profile.html", context = context, username_login = session["username"] )
     else:
         return redirect(url_for('login', alert = "session_expired"))
 
