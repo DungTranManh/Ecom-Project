@@ -12,7 +12,7 @@ app = Flask(__name__)
 app.config["SECRET_KEY"]="5=dcw!p+w*&!y#is_i!#*+2=t9*(^_7#g)2l-09rh=(v7#)c)d"
 app.config["SQLALCHEMY_DATABASE_URI"] = "mysql://root:@localhost/adminsitedb"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
-app.permanent_session_lifetime= timedelta(minutes=5)
+app.permanent_session_lifetime= timedelta(minutes=7)
 
 db = SQLAlchemy(app)
 
@@ -21,13 +21,15 @@ class User(db.Model):
     username = db.Column(db.String(50))
     email = db.Column(db.String(100))
     password = db.Column(db.String(100))
-    date_register = db.Column(db.DateTime, nullable = True, default = datetime.now())
+    date_register = db.Column(db.DateTime, nullable = True)
     is_admin = db.Column(db.Integer, default = 0)
 
-    def __init__(self, username, email, password):
+    def __init__(self, username, email, password,is_admin,date_register):
         self.username = username
         self.email = email
         self.password = password
+        self.date_register = date_register
+        self.is_admin = is_admin
 
 
 @app.route("/")
@@ -84,7 +86,7 @@ def register():
             if get_password_register != get_confirm_password_register:
                 return render_template("signup.html", error = "password_wrong")
             else:
-                new_user = User(get_username_register,get_email_register,hashlib.md5(get_password_register.encode()).hexdigest())
+                new_user = User(get_username_register,get_email_register,hashlib.md5(get_password_register.encode()).hexdigest(),0,date_register=datetime.now())
                 db.session.add(new_user)
                 db.session.commit()
                 return redirect(url_for("login", alert = "register_done"))
@@ -154,5 +156,35 @@ def profile():
     else:
         return redirect(url_for('login', alert = "session_expired"))
 
+
+@app.route("/admin/createAcc/", methods=["GET", "POST"])
+def createAcc():
+    session["tranghientai"] = "createAcc"
+    if "dangnhapthanhcong" in session:
+        if request.method == "POST":
+            createUsernameInput = request.form['CreateUsernameInput']
+            createEmailInput = request.form['CreateEmailInput']
+            createPasswordInput1 = request.form['CreatePasswordInput1']
+            createPasswordInput2 = request.form['CreatePasswordInput2']
+            createSwitchAdmin = request.form.get('SwitchAdmin')
+            user_check_exist = User.query.filter_by(email = createEmailInput).first()
+            if user_check_exist:
+                return render_template("createAcc.html", alert = "Email đã tồn tại")
+            else:
+                if createPasswordInput1 == createPasswordInput2:
+                    if createSwitchAdmin == "checked":
+                        new_user = User(createUsernameInput,createEmailInput,hashlib.md5(createPasswordInput1.encode()).hexdigest(),1,date_register=datetime.now())
+                        db.session.add(new_user)
+                        db.session.commit()
+                    else:
+                        new_user = User(createUsernameInput,createEmailInput,hashlib.md5(createPasswordInput1.encode()).hexdigest(),0,date_register=datetime.now())
+                        db.session.add(new_user)
+                        db.session.commit()
+                    return render_template("createAcc.html", alert = "Tạo tài khoản thành công")
+                else:
+                    return render_template("createAcc.html", alert = "Mật khẩu và xác nhận mật khẩu không chính xác")
+        return render_template("createAcc.html")
+    else:
+        return redirect(url_for('login', alert = "session_expired"))
 if __name__ == "__main__":
     app.run(debug=True, host='localhost', port=8000)

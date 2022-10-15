@@ -1,0 +1,49 @@
+<div class="container-fluid pt-4 px-4">
+    <div class="row vh-100 bg-light rounded  mx-0">
+        <div class="col-md-6">
+            <div class="bg-light rounded h-100 p-4">
+                <h4 class="mb-4">Tạo tài khoản</h4>
+                <form method="POST">
+                    {% if alert == "Mật khẩu và xác nhận mật khẩu không chính xác" %}
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <i class="fa fa-exclamation-circle me-2"></i> Mật khẩu và xác nhận mật khẩu không trùng khớp
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    {% elif alert == "Email đã tồn tại" %}
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <i class="fa fa-exclamation-circle me-2"></i> Email đã tồn tại. Vui lòng sử dụng email khác!
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    {% endif %}
+                    {% if alert == "Tạo tài khoản thành công" %}
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            <i class="fa fa-exclamation-circle me-2"></i> Tạo tài khoản thành công!
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    {% endif %}
+                    <div class="mb-3">
+                        <label for="exampleInputEmail1" class="form-label">Tên tài khoản</label>
+                        <input type="text" class="form-control" id="exampleInputEmail1" name="CreateUsernameInput">
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleInputEmail1" class="form-label">Địa chỉ Email</label>
+                        <input type="email" class="form-control" id="exampleInputEmail1" name="CreateEmailInput">
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleInputPassword1" class="form-label">Mật khẩu</label>
+                        <input type="password" class="form-control" id="exampleInputPassword1" name="CreatePasswordInput1">
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleInputPassword1" class="form-label">Xác nhận mật khẩu</label>
+                        <input type="password" class="form-control" id="exampleInputPassword1" name="CreatePasswordInput2">
+                    </div>
+                    <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" name='SwitchAdmin' value="checked" >
+                        <label class="form-check-label" for="flexSwitchCheckChecked" >Có phải là admin?</label>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Nộp</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
