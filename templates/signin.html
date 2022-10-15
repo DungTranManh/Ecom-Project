@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>DASHMIN - Bootstrap Admin Template</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+
+    {% include 'includes/Header.html' %}
+    
+</head>
+
+<body>
+    <div class="container-xxl position-relative bg-white d-flex p-0">
+        <!-- Spinner Start -->
+        <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+            <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+                <span class="sr-only">Đang Tải...</span>
+            </div>
+        </div>
+        <!-- Spinner End -->
+
+        <!-- Sign In Start -->
+        <div class="container-fluid">
+            <div class="row h-100 align-items-center justify-content-center" style="min-height: 100vh;">
+                <div class="col-12 col-sm-8 col-md-6 col-lg-5 col-xl-4">
+                    <!-- Alert Error-->
+                    {% if error == "not_found_user" %}
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <i class="fa fa-exclamation-circle me-2"></i> Email hoặc Mật khẩu không tồn tại!
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    {% endif %}
+                    {% if error == "user_is_not_admin" %}
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <i class="fa fa-exclamation-circle me-2"></i> Người dùng không phải admin!
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    {% endif %}
+                    {% if show_alert == "register_done" %}
+                        <div class="alert alert-success" role="alert">
+                            Đăng ký tài khoản thành công!
+                        </div>
+                    {% endif %}
+                    {% if show_alert == "session_expired" %}
+                        <div class="alert alert-info" role="alert">
+                            Phiên làm việc hết hạn. Vui lòng đăng nhập lại!
+                        </div>
+                    {% endif %}
+                    
+                    <div class="bg-light rounded p-4 p-sm-5 my-4 mx-3">
+                        <div class="d-flex align-items-center justify-content-between mb-3">
+                            <a href="/login/" class="">
+                                <h3 class="text-primary"><i class="fa fa-hashtag me-2"></i>Admin</h3>
+                            </a>
+                            <h3>Đăng Nhập</h3>
+                        </div>
+                        <form action="" method="post">
+                            <div class="form-floating mb-3">
+                                <input type="email" class="form-control" name='EmailInputField' id="floatingInput" placeholder="name@example.com">
+                                <label for="floatingInput">Địa chỉ Email</label>
+                            </div>
+                            <div class="form-floating mb-4">
+                                <input type="password" class="form-control" name = 'PasswordInputField' id="floatingPassword" placeholder="Password">
+                                <label for="floatingPassword">Mật khẩu</label>
+                            </div>
+                            <div class="d-flex align-items-center justify-content-between mb-4">
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                                    <label class="form-check-label" for="exampleCheck1">Ghi nhớ đăng nhập</label>
+                                </div>
+                                <a href="">Quên mật khẩu</a>
+                            </div>
+                            <button type="submit" class="btn btn-primary py-3 w-100 mb-4">Đăng nhập</button>
+                        </form>
+                        <p class="text-center mb-0">Bạn chưa có tài khoản? <a href="/register/">Đăng Ký</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Sign In End -->
+    </div>
+
+    <!-- JavaScript Libraries -->
+    {% include 'includes/jsLib.html' %}
+
+    <!-- Template Javascript -->
+    {% include 'includes/TempJs.html' %}
+</body>
+
+</html>
