@@ -190,7 +190,13 @@ def createAcc():
     else:
         return redirect(url_for('login', alert = "session_expired"))
 
-
+@app.route("/admin/showAcc/", methods=["GET","POST"])
+def showAcc():
+    session["tranghientai"] = "showAcc"
+    if "dangnhapthanhcong" in session:
+        return render_template("showAcc.html", username_login = session["username"])
+    else:
+        return redirect(url_for("login", alert = "session_expired"))
 # API 
 api = Api(app=app)
 
