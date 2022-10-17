@@ -14,6 +14,11 @@
                             <i class="fa fa-exclamation-circle me-2"></i> Email đã tồn tại. Vui lòng sử dụng email khác!
                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         </div>
+                    {% elif alert == "Thông tin chưa nhập đủ" %}
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <i class="fa fa-exclamation-circle me-2"></i> Vui lòng nhập đầy đủ thông tin!
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
                     {% endif %}
                     {% if alert == "Tạo tài khoản thành công" %}
                         <div class="alert alert-success alert-dismissible fade show" role="alert">

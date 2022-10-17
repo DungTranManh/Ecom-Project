@@ -168,34 +168,39 @@ def createAcc():
             createPasswordInput2 = request.form['CreatePasswordInput2']
             createSwitchAdmin = request.form.get('SwitchAdmin')
             user_check_exist = User.query.filter_by(email = createEmailInput).first()
-            if user_check_exist:
-                return render_template("createAcc.html", alert = "Email đã tồn tại")
-            else:
-                if createPasswordInput1 == createPasswordInput2:
-                    if createSwitchAdmin == "checked":
-                        new_user = User(createUsernameInput,createEmailInput,hashlib.md5(createPasswordInput1.encode()).hexdigest(),1,date_register=datetime.now())
-                        db.session.add(new_user)
-                        db.session.commit()
-                    else:
-                        new_user = User(createUsernameInput,createEmailInput,hashlib.md5(createPasswordInput1.encode()).hexdigest(),0,date_register=datetime.now())
-                        db.session.add(new_user)
-                        db.session.commit()
-                    return render_template("createAcc.html", alert = "Tạo tài khoản thành công")
+            if createUsernameInput and createEmailInput and createPasswordInput1 and createPasswordInput2:
+                if user_check_exist:
+                    return render_template("createAcc.html", alert = "Email đã tồn tại",username_login = session["username"])
                 else:
-                    return render_template("createAcc.html", alert = "Mật khẩu và xác nhận mật khẩu không chính xác")
-        return render_template("createAcc.html")
+                    if createPasswordInput1 == createPasswordInput2:
+                        if createSwitchAdmin == "checked":
+                            new_user = User(createUsernameInput,createEmailInput,hashlib.md5(createPasswordInput1.encode()).hexdigest(),1,date_register=datetime.now())
+                            db.session.add(new_user)
+                            db.session.commit()
+                        else:
+                            new_user = User(createUsernameInput,createEmailInput,hashlib.md5(createPasswordInput1.encode()).hexdigest(),0,date_register=datetime.now())
+                            db.session.add(new_user)
+                            db.session.commit()
+                        return render_template("createAcc.html", alert = "Tạo tài khoản thành công",username_login = session["username"])
+                    else:
+                        return render_template("createAcc.html", alert = "Mật khẩu và xác nhận mật khẩu không chính xác",username_login = session["username"])
+            else:
+                return render_template("createAcc.html", alert = "Thông tin chưa nhập đủ",username_login = session["username"])
+        return render_template("createAcc.html",username_login = session["username"])
     else:
         return redirect(url_for('login', alert = "session_expired"))
 
 
 # API 
 api = Api(app=app)
+
 resourse_fields = {
     "user_id": fields.Integer,
     "username": fields.String,
     "email": fields.String,
     "is_admin": fields.Integer,
 }
+
 class GetAllUser(Resource):
     @marshal_with(resourse_fields)
     def get(self):
