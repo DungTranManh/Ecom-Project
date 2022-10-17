@@ -1,7 +1,7 @@
 from flask import Flask,url_for,render_template,request,session, redirect,flash
 from datetime import timedelta
 from flask_sqlalchemy import SQLAlchemy
-
+from flask_restful import Resource, Api, abort,reqparse,marshal_with,fields
 from datetime import datetime
 import hashlib
 
@@ -186,5 +186,25 @@ def createAcc():
         return render_template("createAcc.html")
     else:
         return redirect(url_for('login', alert = "session_expired"))
+
+
+# API 
+api = Api(app=app)
+resourse_fields = {
+    "user_id": fields.Integer,
+    "username": fields.String,
+    "email": fields.String,
+    "is_admin": fields.Integer,
+}
+class GetAllUser(Resource):
+    @marshal_with(resourse_fields)
+    def get(self):
+        users = User.query.all()         
+        return users, 200
+
+
+api.add_resource(GetAllUser, "/api/getallusers")
+
+
 if __name__ == "__main__":
     app.run(debug=True, host='localhost', port=8000)
