@@ -7,54 +7,16 @@
                     <table class="table">
                         <thead>
                             <tr>
-                                <th scope="col" class="text-center">STT</th>
+                                <th scope="col" class="text-center">ID</th>
                                 <th scope="col" class="text-center">Tên đăng nhập</th>
                                 <th scope="col" class="text-center">Địa chỉ Email</th>
                                 <th scope="col" class="text-center">Chức vụ</th>
                                 <th scope="col" class="text-center">Chức năng</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr>
-                                <th scope="row" class="text-center">1</th>
-                                <td align ="center">Jacob</td>
-                                <td align ="center">jacob@email.com</td>
-                                <td align ="center">member</td>
-                                <td align ="center">
-                                    <button type="button" class="btn btn-square btn-outline-warning m-2"><i class="fas fa-user-edit"></i></i></button>
-                                    <button type="button" class="btn btn-square btn-outline-danger m-2"><i class="fas fa-user-minus"></i></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row" class="text-center">1</th>
-                                <td align ="center">Jacob</td>
-                                <td align ="center">jacob@email.com</td>
-                                <td align ="center">member</td>
-                                <td align ="center">
-                                    <button type="button" class="btn btn-square btn-outline-warning m-2"><i class="fas fa-user-edit"></i></i></button>
-                                    <button type="button" class="btn btn-square btn-outline-danger m-2"><i class="fas fa-user-minus"></i></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row" class="text-center">1</th>
-                                <td align ="center">Jacob</td>
-                                <td align ="center">jacob@email.com</td>
-                                <td align ="center">member</td>
-                                <td align ="center">
-                                    <button type="button" class="btn btn-square btn-outline-warning m-2"><i class="fas fa-user-edit"></i></i></button>
-                                    <button type="button" class="btn btn-square btn-outline-danger m-2"><i class="fas fa-user-minus"></i></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row" class="text-center">1</th>
-                                <td align ="center">Jacob</td>
-                                <td align ="center">jacob@email.com</td>
-                                <td align ="center">member</td>
-                                <td align ="center">
-                                    <button type="button" class="btn btn-square btn-outline-warning m-2"><i class="fas fa-user-edit"></i></i></button>
-                                    <button type="button" class="btn btn-square btn-outline-danger m-2"><i class="fas fa-user-minus"></i></button>
-                                </td>
-                            </tr>
+                        <tbody id = "content-of-table">
+                            <script src="{{url_for('static',filename='js/showAccContent.js')}}"></script>
+                            
                         </tbody>
                     </table>
                 </div>
