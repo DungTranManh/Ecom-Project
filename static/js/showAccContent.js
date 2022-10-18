@@ -7,7 +7,6 @@ function start() {
 start();
 
 
-
 // Fetch all account and render a view
 function GetAllAcc(callback) {
     fetch(url_getalluserAPI)
@@ -30,8 +29,8 @@ function RenderAllAcc(allAccs) {
             <td align ="center">${allAcc.email}</td>
             <td align ="center">${allAcc.is_admin}</td>
             <td align ="center">
-                <button type="button" class="btn btn-square btn-outline-warning m-2"><i class="fas fa-user-edit"></i></i></button>
-                <button type="button" class="btn btn-square btn-outline-danger m-2"><i class="fas fa-user-minus"></i></button>
+                <button type="button" class="btn btn-square btn-outline-warning m-2"><i class="fas fa-user-edit"></i></button>
+                <button type="button" class="btn btn-square btn-outline-danger m-2" id = "delete-item-${allAcc.user_id}"><i class="fas fa-user-minus"></i></button>
             </td>
         </tr>
         `;

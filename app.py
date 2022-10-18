@@ -207,15 +207,62 @@ resourse_fields = {
     "is_admin": fields.Integer,
 }
 
+user_update_args = reqparse.RequestParser()
+user_update_args.add_argument("username_update", type=str, required = False)
+user_update_args.add_argument("email_update", type=str, required = False)
+user_update_args.add_argument("admin_update", type=str, required = False)
+
 class GetAllUser(Resource):
     @marshal_with(resourse_fields)
     def get(self):
         users = User.query.all()         
         return users, 200
 
+class HandleAccount(Resource):
+    @marshal_with(resourse_fields)
+    def get(self,id):
+        account_info = User.query.filter_by(user_id = id).first()
+        if account_info:
+            return account_info, 200
+        else:
+            abort(404)
+    
+
+    @marshal_with(resourse_fields)
+    def delete(self,id):
+        account_info = User.query.filter_by(user_id = id).first()
+        if account_info:
+            db.session.delete(account_info)
+            db.session.commit()
+            return account_info, 200
+        else:
+            abort(404)
+
+    @marshal_with(resourse_fields)
+    def put(self,id):
+        args = user_update_args.parse_args()
+        account_info = User.query.filter_by(user_id = id).first()
+        if account_info:
+            if args['username_update']:
+                account_info.username = args['username_update']
+            if args['email_update']:
+                account_info.email = args['email_update']
+            if args['admin_update']:
+                if args['admin_update'] == "true":
+                    account_info.is_admin = 1
+                else:
+                    account_info.is_admin = 0
+            db.session.commit()
+            return account_info, 200
+        else:
+            abort(404)
+
+
+            
+
 
 api.add_resource(GetAllUser, "/api/getallusers")
-
+api.add_resource(HandleAccount,"/api/account/<string:id>")
 
 if __name__ == "__main__":
     app.run(debug=True, host='localhost', port=8000)
