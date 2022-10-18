@@ -3,6 +3,14 @@ function start() {
     GetAllAcc(function(allAccs){
         RenderAllAcc(allAccs);
     });
+    var modal = document.getElementById('id01');
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
 }
 start();
 
@@ -29,13 +37,14 @@ function RenderAllAcc(allAccs) {
             <td align ="center">${allAcc.email}</td>
             <td align ="center">${allAcc.is_admin}</td>
             <td align ="center">
-                <button type="button" class="btn btn-square btn-outline-warning m-2"><i class="fas fa-user-edit"></i></button>
-                <button type="button" class="btn btn-square btn-outline-danger m-2" id = "delete-item-${allAcc.user_id}"><i class="fas fa-user-minus"></i></button>
+                <button type="button" class="btn btn-square btn-outline-warning m-2" ><i class="fas fa-user-edit"></i></button>
+                <button type="button" class="btn btn-square btn-outline-danger m-2" onclick="document.getElementById('id01').style.display='block'""><i class="fas fa-user-minus"></i></button>
             </td>
         </tr>
         `;
     });
     ContentOfTable.innerHTML = html.join("");
 }
+
 
 

@@ -18,6 +18,21 @@
                             <script src="{{url_for('static',filename='js/showAccContent.js')}}"></script>
                         </tbody>
                     </table>
+                    <div id="id01" class="modal">
+                        <!--<span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>-->
+                        <form class="modal-content" action="/action_page.php">
+                            <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
+                            <div class="container">
+                                <h1>Xác nhận</h1>
+                                <p>Bạn có chắc chắn muốn xóa vĩnh viễn tài khoản này?</p>
+                        
+                                <div class="clearfix">
+                                <button type="button" class="cancelbtn">Hủy</button>
+                                <button type="button" class="deletebtn">Xóa</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
