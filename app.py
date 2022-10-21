@@ -12,7 +12,7 @@ app = Flask(__name__)
 app.config["SECRET_KEY"]="5=dcw!p+w*&!y#is_i!#*+2=t9*(^_7#g)2l-09rh=(v7#)c)d"
 app.config["SQLALCHEMY_DATABASE_URI"] = "mysql://root:@localhost/adminsitedb"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
-app.permanent_session_lifetime= timedelta(minutes=7)
+app.permanent_session_lifetime= timedelta(minutes=60)
 
 db = SQLAlchemy(app)
 
@@ -258,7 +258,6 @@ class HandleAccount(Resource):
             abort(404)
 
 
-            
 
 
 api.add_resource(GetAllUser, "/api/getallusers")

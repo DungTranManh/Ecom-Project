@@ -29,7 +29,7 @@ button:hover {
 }
 
 /* Add a color to the delete button */
-.deletebtn {
+.deletebtn, .confirmbtn{
   background-color: #f44336;
 }
 

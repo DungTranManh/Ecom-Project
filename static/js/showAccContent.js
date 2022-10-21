@@ -10,15 +10,16 @@ function start() {
 start();
 
 
-function showModal(user_id, UsernameDelete) {
+function showModal(user_id, usernameDeleted) {
     // When the user clicks anywhere outside of the modal, close it
     window.onclick = function(event) {
         if (event.target == modal) {
             modal.style.display = "none";
         }
     }
-    document.getElementById('id01').style.display='block';
-    document.querySelector(".deletebtn").addEventListener("click", function(){
+    if(document.getElementById("username_login").innerHTML != usernameDeleted){
+        document.getElementById('id01').style.display='block';
+        document.querySelector(".deletebtn").addEventListener("click", function(){
         fetch('http://127.0.0.1:8000/api/account/' + user_id, {
             method: 'DELETE',
         })
@@ -31,6 +32,10 @@ function showModal(user_id, UsernameDelete) {
         })
         document.getElementById('id01').style.display='none';
     });
+    }else{
+        document.getElementById('id02').style.display='block';
+    }
+    
 }
     
 
