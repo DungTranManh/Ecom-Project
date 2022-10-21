@@ -17,7 +17,7 @@ button:hover {
 }
 
 /* Float cancel and delete buttons and add an equal width */
-.cancelbtn, .deletebtn {
+.cancelbtn, .deletebtn, .confirmEditbtn {
   float: left;
   width: 50%;
 }

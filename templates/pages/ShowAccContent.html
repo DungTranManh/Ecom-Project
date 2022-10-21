@@ -19,31 +19,9 @@
                             
                         </tbody>
                     </table>
-                    <div id="id01" class="modal">
-                        <form class="modal-content" action="#">
-                            <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">×</span>
-                            <div class="container">
-                                <h1>Xác nhận</h1>
-                                <p>Bạn có chắc chắn muốn xóa vĩnh viễn tài khoản này?</p>
-                                <div class="clearfix">
-                                    <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Hủy</button>
-                                    <button type="button" class="deletebtn">Xóa</button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                    <div id="id02" class="modal">
-                        <form class="modal-content" action="#">
-                            <span onclick="document.getElementById('id02').style.display='none'" class="close" title="Close Modal">×</span>
-                            <div class="container">
-                                <h1>Cảnh báo</h1>
-                                <p>Bạn không thể xóa tài khoản đang được sử dụng!</p>
-                                <div class="clearfix">
-                                    <button type="button" onclick="document.getElementById('id02').style.display='none'" class="confirmbtn">Xác nhận</button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
+                    {% include 'includes/modal1.html' %}
+                    {% include 'includes/modal2.html' %}
+                    {% include 'includes/EditModal.html' %}
                 </div>
             </div>
         </div>

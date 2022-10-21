@@ -1,0 +1,29 @@
+<div id="EditModal" class="modal">
+    <form class="modal-content" action="#">
+        <span onclick="document.getElementById('EditModal').style.display='none'" class="close" title="Close Modal">×</span>
+        <div class="container">
+            <h1>Chỉnh Sửa Tài Khoản</h1>
+            <div class = "form-input-edit">
+                <form action="" method="post">
+                    <div class="mb-3">
+                        <label for="exampleInputEmail1" class="form-label">Tên tài khoản</label>
+                        <input type="text" class="form-control" id="username_target_input" name="CreateUsernameInput">
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleInputEmail1" class="form-label">Địa chỉ Email</label>
+                        <input type="email" class="form-control" id="email_target_input" name="CreateEmailInput">
+                    </div>
+                    <label for="" class="form-label">Chức vụ</label>
+                    <select class="form-select mb-3" aria-label="Default select example" id = "admin_target_selector">
+                        <option value = "0">Member</option>
+                        <option value="1">Admin</option>
+                    </select>
+                </form>
+            </div>
+            <div class="clearfix">
+                <button type="button" onclick="document.getElementById('EditModal').style.display='none'" class="cancelbtn">Hủy</button>
+                <button type="button" class="confirmEditbtn">Xác nhận</button>
+            </div>
+        </div>
+    </form>
+</div>

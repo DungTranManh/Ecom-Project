@@ -37,6 +37,22 @@ function showModal(user_id, usernameDeleted) {
     }
     
 }
+
+function showEditModal(user_id_target, username_target, email_target, admin_target) {
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+    document.getElementById('username_target_input').value = username_target;
+    document.getElementById('email_target_input').value = email_target;
+    if(admin_target == "admin"){
+        document.getElementById('admin_target_selector').value = "1";
+    }else if (admin_target == "member"){
+        document.getElementById('admin_target_selector').value = "0";
+    }
+    document.getElementById('EditModal').style.display='block';
+}
     
 
 // Fetch all account and render a view
@@ -61,7 +77,7 @@ function RenderAllAcc(allAccs) {
             <td align ="center">${allAcc.email}</td>
             <td align ="center">${allAcc.is_admin}</td>
             <td align ="center">
-                <button type="button" class="btn btn-square btn-outline-warning m-2" ><i class="fas fa-user-edit"></i></button>
+                <button type="button" class="btn btn-square btn-outline-warning m-2" onclick="showEditModal(${allAcc.user_id},'${allAcc.username}','${allAcc.email}','${allAcc.is_admin}');" ><i class="fas fa-user-edit"></i></button>
                 <button type="button" class="btn btn-square btn-outline-danger m-2" onclick="showModal(${allAcc.user_id},'${allAcc.username}');" id = "${allAcc.user_id}""><i class="fas fa-user-minus"></i></button>
             </td>
         </tr>
